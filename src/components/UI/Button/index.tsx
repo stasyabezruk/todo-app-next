@@ -8,6 +8,11 @@ const SubmitButton = styled.button`
   border: 2px solid;
   border-radius: 3px;
   display: inline-block;
+  cursor: pointer;
+  &:hover,
+  &:focus {
+    background-color: #e3e3e3;
+  }
 `;
 
 const ResetButton = styled.button`

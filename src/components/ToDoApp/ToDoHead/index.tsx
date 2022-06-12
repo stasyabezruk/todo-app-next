@@ -5,7 +5,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const ToDoHeadBlock = styled.div`
-  padding-top: 48px;
+  padding-top: 20px;
   padding-left: 32px;
   padding-right: 32px;
   padding-bottom: 24px;
