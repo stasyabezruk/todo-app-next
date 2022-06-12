@@ -28,7 +28,7 @@ const Todos = () => {
     } else {
       dispatch(setTodos(fetchedData));
     }
-  }, [isSavedTodos]);
+  }, [isSavedTodos, fetchedData]);
 
   return (
     <ToDoTemplate>
