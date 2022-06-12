@@ -3,7 +3,7 @@ import getTodosApi from '../../pages/api/todos';
 import { EFetchStatus } from '../../utils/types';
 import { ITodo, initialState } from './interface';
 
-export const fetchTodos = createAsyncThunk<ITodo[]>('totos/fetch', async (_, { rejectWithValue }) => {
+export const fetchTodosData = createAsyncThunk<ITodo[]>('totos/fetch', async (_, { rejectWithValue }) => {
   try {
     const { data } = await getTodosApi();
     return data;
@@ -25,24 +25,27 @@ export const slice = createSlice({
     addTodoDispatch(state, { payload }: PayloadAction<ITodo>) {
       state.items.unshift(payload);
     },
+    setTodos(state, { payload }: PayloadAction<ITodo[]>) {
+      state.items = payload;
+    },
   },
   extraReducers: (builder) => {
-    builder.addCase(fetchTodos.pending, (state) => {
+    builder.addCase(fetchTodosData.pending, (state) => {
       state.status = EFetchStatus.LOADING;
     });
-    builder.addCase(fetchTodos.fulfilled, (state, { payload }) => {
+    builder.addCase(fetchTodosData.fulfilled, (state, { payload }) => {
       state.status = EFetchStatus.IDLE;
       state.errors = null;
-      state.items = payload;
+      state.fetchedData = payload;
     });
-    builder.addCase(fetchTodos.rejected, (state, action) => {
+    builder.addCase(fetchTodosData.rejected, (state, action) => {
       state.status = EFetchStatus.FAILED;
       state.errors = action.error.message || '';
-      state.items = [];
+      state.fetchedData = [];
     });
   },
 });
 
-export const { toggleTodoDispatch, removeTodoDispatch, addTodoDispatch } = slice.actions;
+export const { toggleTodoDispatch, removeTodoDispatch, addTodoDispatch, setTodos } = slice.actions;
 
 export default slice.reducer;

@@ -1,22 +1,11 @@
-import { useAppDispatch } from 'app/hooks';
+import { useAppDispatch, useAppSelector } from 'app/hooks';
+import { resetSavedTodos, setSavedTodos } from 'features/saved/slice';
 import { ITodo } from 'features/todos/interface';
+import { getTodos } from 'features/todos/selector';
 import { addTodoDispatch, removeTodoDispatch, toggleTodoDispatch } from 'features/todos/slice';
 
-/* export function todoReducer(state: ITodo[], action): ITodo[] {
-  switch (action.type) {
-    case 'ADD':
-      return state.concat(action.todo);
-    case 'TOGGLE':
-      return state.map((todo: ITodo) => (todo.id === action.id ? { ...todo, completed: !todo.completed } : todo));
-    case 'REMOVE':
-      return state.filter((todo) => todo.id !== action.id);
-
-    default:
-      throw new Error(`Unhandled action type: ${action.type}`);
-  }
-} */
-
 function useTodoActions() {
+  const todos = useAppSelector(getTodos);
   const dispatch = useAppDispatch();
 
   const toggleTodo = (id: number) => {
@@ -31,10 +20,20 @@ function useTodoActions() {
     dispatch(addTodoDispatch(todo));
   };
 
+  const saveTodos = () => {
+    dispatch(setSavedTodos(todos));
+  };
+
+  const removeTodos = () => {
+    dispatch(resetSavedTodos());
+  };
+
   return {
     toggleTodo,
     removeTodo,
     addTodo,
+    saveTodos,
+    removeTodos,
   };
 }
 

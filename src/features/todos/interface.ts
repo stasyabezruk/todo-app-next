@@ -2,13 +2,15 @@ import { EFetchStatus } from 'utils/types';
 
 export interface TodosState {
   status: EFetchStatus;
+  fetchedData: ITodo[];
   items: ITodo[];
   errors?: string;
 }
 
 export const initialState: TodosState = {
   status: EFetchStatus.LOADING,
-  items: [] as ITodo[],
+  fetchedData: [],
+  items: [],
 };
 
 export interface ITodo {

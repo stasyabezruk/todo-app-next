@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import ToDoItem from 'components/ToDoItem';
-import { ITodo } from 'features/todos/interface';
+import ToDoItem from 'components/ToDoApp/ToDoItem';
+import { useAppSelector } from 'app/hooks';
+import { getTodos } from 'features/todos/selector';
 
 const ToDoListBlock = styled.div`
   flex: 1;
@@ -10,14 +11,12 @@ const ToDoListBlock = styled.div`
   overflow-y: auto;
 `;
 
-type Props = {
-  items: ITodo[];
-};
+const ToDoList = () => {
+  const todos = useAppSelector(getTodos);
 
-const ToDoList: React.FC<Props> = ({ items }) => {
   return (
     <ToDoListBlock>
-      {items.map((item) => {
+      {todos.map((item) => {
         return <ToDoItem key={item.id} id={item.id} text={item.title} done={item.completed} />;
       })}
     </ToDoListBlock>

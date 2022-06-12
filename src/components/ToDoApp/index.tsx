@@ -1,36 +1,40 @@
 /* eslint-disable no-console */
 import React, { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
-import { fetchTodos } from 'features/todos/slice';
-import ToDoTemplate from 'components/ToDoTemplate';
-import ToDoList from 'components/ToDoList';
-import ToDoHead from 'components/ToDoHead';
-import ToDoCreate from 'components/ToDoCreate';
-import { getTodosByUserId } from 'features/todos/selector';
+import { fetchTodosData, setTodos } from 'features/todos/slice';
+import ToDoTemplate from 'components/ToDoApp/ToDoTemplate';
+import ToDoList from 'components/ToDoApp/ToDoList';
+import ToDoHead from 'components/ToDoApp/ToDoHead';
+import ToDoCreate from 'components/ToDoApp/ToDoCreate';
+import { getFetchedDataByUserId } from 'features/todos/selector';
 import useUserId from 'hooks/useUserId';
-import { setSavedTodos } from 'features/saved/slice';
+import { getIsSavedTodos, getSavedTodos } from 'features/saved/selector';
+import ToggleSave from './ToggleSave';
 
 const Todos = () => {
   const dispatch = useAppDispatch();
   const userId = useUserId();
-  const todos = useAppSelector(getTodosByUserId(userId));
+  const fetchedData = useAppSelector(getFetchedDataByUserId(userId));
+  const savedTodos = useAppSelector(getSavedTodos);
+  const isSavedTodos = useAppSelector(getIsSavedTodos);
 
   useEffect(() => {
-    dispatch(fetchTodos());
+    dispatch(fetchTodosData());
   }, []);
+
+  useEffect(() => {
+    if (isSavedTodos) {
+      dispatch(setTodos(savedTodos));
+    } else {
+      dispatch(setTodos(fetchedData));
+    }
+  }, [isSavedTodos]);
 
   return (
     <ToDoTemplate>
-      <button
-        type="button"
-        onClick={() => {
-          dispatch(setSavedTodos(todos));
-        }}
-      >
-        Add
-      </button>
+      <ToggleSave />
       <ToDoHead />
-      <ToDoList items={todos} />
+      <ToDoList />
       <ToDoCreate />
     </ToDoTemplate>
   );
