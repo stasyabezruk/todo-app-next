@@ -1,25 +1,25 @@
-# Redux Toolkit TypeScript Example
+### Todo app
 
-This example shows how to integrate Next.js with [Redux Toolkit](https://redux-toolkit.js.org).
+- This example shows how to integrate Next.js with [Redux Toolkit](https://redux-toolkit.js.org).
+- Typescript
+- styled-components
+- redux-persist (for saving in local storage)
+- custom hooks (*useInput, useTodoActions*)
 
-The **Redux Toolkit** is a standardized way to write Redux logic (create actions and reducers, setup the store with some default middlewares like redux devtools extension). This example demonstrates each of these features with Next.js
+#### What the application does
+- The task list can be fetched from: https://jsonplaceholder.typicode.com/todos
+- application’s URL a **userId** query param will be present with which the task list will be filtered by. Example: *localhost:3000/?userId=2* will only display tasks for userId=2.
+- For each task there is **DONE** button (circle checkbox) that will change styles.
+- For each task there is **REMOVE** button that will appear on hover effect.
+- There is a button **PLUS** that will show the field for adding new task. You can type and press ENTER to add it to the begining of the list. When you press **CROSS** button - the field section will be hidden
+____
+- Button **Save tasks** saves tasks list to localStorage
+- Button **Remove tasks list** - resets tasks list from localStorage
+- By default the todos are fecthed from api. But if you have saved tasks in localStorage, they will be taken from it.
+- When you add new task, remove or mark task as done, and then you want to save the task list -> press **Save tasks** button.
 
-## Deploy your own
-
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example):
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-redux&project-name=with-redux&repository-name=with-redux)
-
-## How to use
-
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init), [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/), or [pnpm](https://pnpm.io) to bootstrap the example:
-
+#### How to use
 ```bash
-npx create-next-app --example with-redux with-redux-app
-# or
-yarn create next-app --example with-redux with-redux-app
-# or
-pnpm create next-app --example with-redux with-redux-app
+npm install
+npm run dev -> http://localhost:3000/
 ```
-
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
