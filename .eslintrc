@@ -1,0 +1,144 @@
+{
+  "env": {
+    "browser": true,
+    "es6": true
+  },
+  "extends": [
+    "plugin:react/recommended",
+    "airbnb",
+    "airbnb-typescript",
+    "airbnb/hooks",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended",
+    "eslint:recommended",
+    "eslint-config-prettier",
+    "prettier"
+  ],
+  "globals": {
+    "Atomics": "readonly",
+    "SharedArrayBuffer": "readonly",
+    "JSX": "readonly",
+    "gtm": "readonly",
+    "google": "readonly"
+  },
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true,
+      "tsx": true
+    },
+    "ecmaVersion": 2018,
+    "sourceType": "module",
+    "project": "./tsconfig.json"
+  },
+  "plugins": [
+    "react",
+    "@typescript-eslint"
+  ],
+  "ignorePatterns": [
+    "**/assets",
+    "node_modules",
+    "*.json",
+    "*.svg",
+    "*.png",
+    "*.d.ts",
+    "*.html",
+    "*.scss",
+    "*.css",
+    "*.jpg",
+    "*.ttf",
+    "*.woff",
+    "*.woff2"
+  ],
+  "overrides": [
+    {
+      "files": [
+        "./src/**/*.reducer.ts"
+      ],
+      "rules": {
+        "default-param-last": "off",
+        "@typescript-eslint/default-param-last": "off"
+      }
+    },
+    {
+      "files": [
+        "./src/**/*.reducer.ts",
+        "./src/**/*.actions.ts"
+      ],
+      "rules": {
+        "import/no-cycle": "off"
+      }
+    }
+  ],
+  "rules": {
+    "react/prefer-stateless-function": 0,
+    "react-hooks/exhaustive-deps": "off", // added "react-hooks/exhaustive-deps"
+    "react/prop-types": "off",
+    "no-param-reassign": [
+      "error",
+      {
+        "props": false
+      }
+    ], // for redux-toolkit
+    "import/no-cycle": 0,
+    "react/jsx-filename-extension": "off",
+    "react/no-array-index-key": "off",
+    "react/function-component-definition": "off",
+    "react/require-default-props": "off",
+    "linebreak-style": "off",
+    "import/no-unresolved": "off",
+    "import/extensions": "off",
+    "no-nested-ternary": "off",
+    "no-unused-expressions": [
+      "error",
+      {
+        "allowTernary": true,
+        "allowShortCircuit": true
+      }
+    ],
+    "no-bitwise": "off",
+    "no-console": 1,
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "packageDir": "./"
+      }
+    ],
+    "no-plusplus": "off",
+    "typescript-eslint/no-unused-expressions": "off",
+    "@typescript-eslint/no-unused-expressions": "off",
+    "eslint-disable/no-use-before-define": "off",
+    "@typescript-eslint/no-use-before-define": "off",
+    // ACCESSIBILITY RULES - in future if needed should be allowed back to indicate what should be fixed
+    "jsx-a11y/no-static-element-interactions": "off",
+    "jsx-a11y/click-events-have-key-events": "off",
+    "jsx-a11y/alt-text": "off",
+    "jsx-a11y/anchor-is-valid": "off",
+    "jsx-a11y/no-noninteractive-element-interactions": "off",
+    "jsx-a11y/label-has-associated-control": "off"
+  },
+  "settings": {
+    "import/extensions": [
+      ".js",
+      ".jsx",
+      ".ts",
+      ".tsx"
+    ],
+    "import/parsers": {
+      "@typescript-eslint/parser": [
+        ".ts",
+        ".tsx"
+      ]
+    },
+    "import/resolver": {
+      "typescript": {
+        "alwaysTryTypes": true
+      },
+      "node": {
+        "paths": [
+          "./src"
+        ]
+      }
+    }
+  }
+}

@@ -1,24 +1,36 @@
-import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit'
+import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
+import thunk from 'redux-thunk';
+import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
+import rootReducer from './rootReducer';
 
-import counterReducer from '../features/counter/counterSlice'
+const persistConfig = {
+  key: 'root',
+  storage,
+  whitelist: ['saved'],
+};
+
+const persistedReducer = persistReducer<RootState>(persistConfig, rootReducer);
+
+export const configuredStore = configureStore({
+  reducer: persistedReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }).concat(thunk),
+});
+
+export const persistor = persistStore(configuredStore);
 
 export function makeStore() {
-  return configureStore({
-    reducer: { counter: counterReducer },
-  })
+  return configuredStore;
 }
 
-const store = makeStore()
+export type AppDispatch = typeof store.dispatch;
+export type RootState = ReturnType<typeof rootReducer>;
+export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, RootState, unknown, Action<string>>;
+const store = makeStore();
 
-export type AppState = ReturnType<typeof store.getState>
-
-export type AppDispatch = typeof store.dispatch
-
-export type AppThunk<ReturnType = void> = ThunkAction<
-  ReturnType,
-  AppState,
-  unknown,
-  Action<string>
->
-
-export default store
+export default store;
