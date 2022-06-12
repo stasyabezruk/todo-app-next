@@ -1,6 +1,6 @@
 ### Todo app
 
-- This example shows how to integrate Next.js with [Redux Toolkit](https://redux-toolkit.js.org).
+- This example shows how to integrate **Next.js** with [Redux Toolkit](https://redux-toolkit.js.org).
 - Typescript
 - styled-components
 - redux-persist (for saving in local storage)
@@ -23,3 +23,5 @@ ____
 npm install
 npm run dev -> http://localhost:3000/
 ```
+
+https://user-images.githubusercontent.com/10813820/173241065-0b9434ed-151a-4186-926d-5118c492352e.mp4
